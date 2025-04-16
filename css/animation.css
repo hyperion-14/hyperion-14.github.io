@@ -1,0 +1,64 @@
+/*
+ * Styles specific to the background cloud and plane animation.
+ */
+
+/* Base container for the SKY background and holds the plane */
+.animation-wrapper {
+    position: fixed; /* Keeps it fixed during scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Nice sky gradient */
+    background-image: radial-gradient(circle at 50% 100%, whitesmoke 0, skyblue 100%);
+    /* Places the SKY and PLANE behind main content and cloud overlay */
+    z-index: -1;
+    overflow: hidden; /* Prevents scrollbars if elements exceed boundaries */
+    pointer-events: none; /* Allow clicks to pass through to content below */
+}
+
+/* --- Paper Plane Styles --- */
+.plane {
+    visibility: hidden; /* Made visible by JS (plane-animation.js) */
+    position: absolute; /* Necessary for JS positioning */
+    /* Initial width/height might influence layout slightly before JS takes over */
+    height: 175px;
+    width: 175px;
+    /* Initial transform overridden by JS animation */
+    transform: translateY(100px);
+    /* z-index relative to animation-wrapper. Since wrapper is -1, plane is behind content */
+    /* If clouds were also in this wrapper, plane would be above clouds with z-index:1 */
+    z-index: 3;
+    /* pointer-events: none; is handled by the wrapper */
+}
+
+/* --- Dynamic Cloud CSS Rules (These clouds are now in #cloud-overlay) --- */
+/* Base element for positioning a cloud group */
+.cloudBase {
+    position: absolute;
+    /* Actual position is controlled by JS via transform */
+    width: 1px;
+    height: 1px;
+    /* pointer-events: none; is handled by the parent #cloud-overlay */
+    will-change: transform; /* Performance hint for animation */
+    /* z-index relative to #cloud-overlay container */
+    z-index: 1;
+}
+
+/* Individual cloud image layers */
+.cloudLayer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 256px; /* Base image size */
+    height: 256px; /* Base image size */
+    margin-left: -128px; /* Center image on base point */
+    margin-top: -128px; /* Center image on base point */
+    opacity: 0; /* Start hidden, opacity controlled by JS */
+    will-change: transform, opacity; /* Performance hints */
+    /* Use default rendering unless specific pixelation is needed */
+    image-rendering: auto;
+}
+
+/* Styles for .dev-icons and .badge were moved to styles.css previously */
+/* Ensure they are not duplicated here if they exist in styles.css */
