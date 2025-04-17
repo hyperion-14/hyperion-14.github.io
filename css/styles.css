@@ -50,7 +50,9 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   /* Add padding top for fixed navbar on small screens */
   padding-top: 54px; /* Height of the navbar */
+  cursor: url('../assets/img/paperplane-pointer.png') , auto;
 }
+ 
 
 @media (min-width: 992px) {
   body {
@@ -152,8 +154,7 @@ ul.fa-ul .fa-li {
 
 #awards ul.fa-ul li:hover {
   color: var(--bs-primary); /* Change text color to primary */
-  transform: translateX(5px); /* Slight shift right for emphasis */
-  cursor: default; /* Indicate it's not clickable */
+  transform: translateX(5px); /* Slight shift right for emphasis */ 
 }
 
 a {
@@ -403,8 +404,7 @@ img, svg {
 }
 .badge:hover {
   transform: scale(1.05); /* Slightly increase size */
-  filter: brightness(90%); /* Slightly darken the background */
-  cursor: default; /* Optional: Indicate it's not clickable if it isn't */
+  filter: brightness(90%); /* Slightly darken the background */ 
 }
 .fixed-top {
   position: fixed;
@@ -633,8 +633,7 @@ img, svg {
 
 /* Change SVG color when the parent LI is hovered */
 .dev-icons .list-inline-item:hover svg {
-   color: var(--bs-primary); /* Change color to primary */
-   cursor: default;
+   color: var(--bs-primary); /* Change color to primary */ 
 }
 
 /* --- Resume Sections --- */
@@ -677,8 +676,7 @@ section.resume-section .resume-section-content {
 .skills-summary:hover {
   font-weight: bold;      
   /* font-style: italic;      */
-  color: var(--bs-dark);  
-  cursor: default;     
+  color: var(--bs-dark);   
 }
  
 @keyframes vibrate {
@@ -708,8 +706,7 @@ section.resume-section .resume-section-content {
   display: inline-block;  
 } 
 .scale-on-hover:hover { 
-  transform: scale(1.1); 
-  cursor: default;
+  transform: scale(1.1);  
 }
 
 .scale-on-hover-09 { 
@@ -717,6 +714,5 @@ section.resume-section .resume-section-content {
   display: inline-block;  
 } 
 .scale-on-hover-09:hover { 
-  transform: scale(0.95); 
-  cursor: default;
+  transform: scale(0.95);  
 }
