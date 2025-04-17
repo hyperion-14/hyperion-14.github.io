@@ -810,7 +810,9 @@ img[src="https://www.wingwill.com.tw/wp-content/uploads/2020/08/GCP-scaled_Share
 body.dark-mode img[src="https://www.wingwill.com.tw/wp-content/uploads/2020/08/GCP-scaled_Shared_20191125-1024x486.png"] {
   filter: grayscale(100%);  
 }
-
+body.dark-mode img[src="assets/img/profile.png"] {
+  filter: grayscale(100%);  
+}
 
 body.dark-mode ul.fa-ul .fa-li {
   filter: grayscale(100%);
