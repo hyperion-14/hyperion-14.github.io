@@ -31,13 +31,12 @@
     --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+    --profile-border-color: rgba(255, 255, 255, 0.2); /* Light mode profile border */
 
     /* Default plane filter (none for light mode) */
     --plane-filter: none;
     /* Default cloud appearance */
     --cloud-filter: none;
-    /* Default sky */
-    --animation-bg: radial-gradient(circle at 50% 100%, whitesmoke 0, skyblue 100%);
 }
 
 *,
@@ -59,19 +58,20 @@ body {
     font-weight: 400;
     line-height: 1.5;
     color: var(--bs-body-color);
-    background-color: var(--bs-body-bg);
+    background-color: var(--bs-body-bg); /* Use variable */
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    padding-top: 54px; /* Height of the navbar */
+    padding-top: 54px;
     cursor: url('../assets/img/paperplane-pointer.png'), auto;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+    transition: background-color 3s ease, color 3s ease;
 }
 
 @media (min-width: 992px) {
     body {
-        padding-top: 0;
-        padding-left: 17rem; /* Width of the sidebar */
+        padding-top: 0 !important;
+        padding-left: 17rem !important;
     }
+    html, body { height: 100%; margin: 0; padding: 0; }
 }
 
 hr {
@@ -86,15 +86,17 @@ hr:not([size]) {
     height: 1px;
 }
 
+/* --- Base Heading Rule --- */
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     margin-top: 0;
     margin-bottom: 0.5rem;
     font-family: var(--bs-heading-font-family);
     font-weight: 700;
     line-height: 1.2;
-    color: var(--bs-heading-color);
+    color: var(--bs-heading-color); /* Use variable */
     text-transform: uppercase;
-    transition: color 0.3s ease; /* Smooth transition */
+    /* General color transition for all headings */
+    transition: color 3s ease;
 }
 
 h1, .h1 { font-size: calc(1.725rem + 5.7vw); line-height: 1; }
@@ -121,32 +123,52 @@ ul.fa-ul {
     margin-left: 0;
 }
 ul.fa-ul > li { position: relative; }
+
+/* === MODIFIED AWARDS LIST RULES === */
 ul.fa-ul .fa-li {
     position: absolute;
     left: -2.1em;
     width: 2em;
     top: 0.14em;
     text-align: center;
+    transition: filter 3s ease; /* Keep the filter transition */
 }
 
 #awards ul.fa-ul li {
     font-size: 1.2rem;
-    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
     margin-bottom: 0.5rem;
+    /* Base transitions: color for theme change, transform for hover */
+    transition: color 3s ease,
+                transform 0.2s ease-in-out;
+    /* Inherits base text color from body */
 }
 #awards ul.fa-ul li:hover {
+    /* Override color transition duration *only* for hover state */
+    transition-duration: 0.2s, 0.2s; /* Corresponds to color, transform */
+    /* Apply hover styles */
     color: var(--bs-primary);
     transform: translateX(5px);
 }
+/* === END MODIFIED AWARDS LIST RULES === */
+
+#awards ul.fa-ul li a { /* Rule for certificate links */
+    color: var(--bs-body-color);
+    transition: color 3s ease;
+}
+#awards ul.fa-ul li a:hover { /* Rule for certificate link hover */
+    color: var(--bs-primary);
+    transition: color 0.2s ease-in-out;
+}
+
 
 a {
     color: var(--bs-primary);
     text-decoration: underline;
-    transition: color 0.3s ease;
+    transition: color 3s ease;
 }
 a:hover {
-    /* Define a darker primary shade for hover, adjusted in dark mode */
     color: color-mix(in srgb, var(--bs-primary), black 20%);
+    transition: color 0.2s ease;
 }
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
     color: inherit;
@@ -154,6 +176,13 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
 }
 
 img, svg { vertical-align: middle; }
+
+/* Base transition for filterable images */
+img[src*="SAP_2011_logo.svg"],
+img[src*="GCP-scaled_Shared"] {
+    transition: filter 3s ease;
+}
+
 .lead { font-size: 1.15rem; font-weight: 400; }
 .list-inline { padding-left: 0; list-style: none; }
 .list-inline-item { display: inline-block; }
@@ -163,8 +192,8 @@ img, svg { vertical-align: middle; }
 .img-profile {
     max-width: 10rem;
     max-height: 10rem;
-    border: 0.5rem solid rgba(255, 255, 255, 0.2); /* Adjusted in dark mode */
-    transition: border-color 0.3s ease;
+    border: 0.5rem solid var(--profile-border-color);
+    transition: border-color 3s ease, filter 3s ease;
 }
 
 .container-fluid {
@@ -232,6 +261,8 @@ img, svg { vertical-align: middle; }
     font-size: 1.25rem;
     text-decoration: none;
     white-space: nowrap;
+    position: relative;
+    z-index: 1;
 }
 .navbar-nav {
     display: flex;
@@ -241,7 +272,13 @@ img, svg { vertical-align: middle; }
     list-style: none;
 }
 .navbar-nav .nav-link { padding-right: 0; padding-left: 0; }
-.navbar-collapse { flex-basis: 100%; flex-grow: 1; align-items: center; }
+.navbar-collapse {
+    flex-basis: 100%;
+    flex-grow: 1;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
 .navbar-toggler {
     padding: 0.25rem 0.75rem;
     font-size: 1.25rem;
@@ -250,6 +287,8 @@ img, svg { vertical-align: middle; }
     border: 1px solid transparent;
     border-radius: 0.25rem;
     transition: box-shadow 0.15s ease-in-out;
+    position: relative;
+    z-index: 1;
 }
 @media (prefers-reduced-motion: reduce) { .navbar-toggler { transition: none; } }
 .navbar-toggler:hover { text-decoration: none; }
@@ -268,83 +307,94 @@ img, svg { vertical-align: middle; }
 #sideNav {
     padding-left: 1rem;
     padding-right: 1rem;
-    background: linear-gradient(to bottom, #28749f, #5fb8e4); /* Default Gradient */
-    transition: background 0.3s ease;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
 }
+
+#sideNav::before,
+#sideNav::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+}
+
+#sideNav::before {
+    background: linear-gradient(to bottom, #28749f, #5fb8e4);
+}
+
+#sideNav::after {
+    background: linear-gradient(to bottom, #1d1f21, #393d3f);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 3s ease;
+}
+
 #sideNav .navbar-nav .nav-item .nav-link {
     font-weight: 800;
     letter-spacing: 0.05rem;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7); /* Default link color */
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 3s ease;
+    position: relative;
+    z-index: 1;
 }
 #sideNav .navbar-toggler:focus { outline-color: #d48a6e; }
 
 /* --- Styles for the Dark Mode Toggle Button --- */
-/* General styling for the switch input */
 #sideNav .form-check-input {
     width: 3em;
     height: 1.5em;
-    margin-top: 0; /* Adjusted for alignment within potential flex container */
-    background-color: rgba(255, 255, 255, 0.3); /* Slightly visible toggle bg */
+    margin-top: 0;
+    background-color: rgba(255, 255, 255, 0.3);
     border-color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-    flex-shrink: 0; /* Prevent switch from shrinking */
-    margin-left: 0 !important; /* Ensure no unwanted left margin */
-    margin-right: 0.25rem; /* Space between switch and moon icon if inline */
+    transition: background-color 3s ease-in-out, border-color 3s ease-in-out, background-image 3s ease-in-out;
+    flex-shrink: 0;
+    margin-left: 0 !important;
+    margin-right: 0.25rem;
 }
 #sideNav .form-check-input:checked {
-    background-color: var(--bs-primary); /* Use primary color when active */
+    background-color: var(--bs-primary);
     border-color: var(--bs-primary);
 }
-/* Specific styling for the track/background and thumb of the switch */
 #sideNav .form-switch .form-check-input {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,0.7)'/%3e%3c/svg%3e"); /* Light thumb */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,0.7)'/%3e%3c/svg%3e");
 }
 #sideNav .form-switch .form-check-input:checked {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e"); /* White thumb when checked */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
 }
-/* Styles for icons if used within the toggle li */
-#sideNav .mode-toggle i { /* Keep this if icons are direct children or adjust selector */
+#sideNav .mode-toggle i {
     font-size: 1.2em;
-    color: rgba(255, 255, 255, 0.7); /* Match nav link color */
-    transition: color 0.2s ease-in-out;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 3s ease-in-out;
     flex-shrink: 0;
 }
 #sideNav .mode-toggle i:hover {
     color: #ffffff;
+    transition: color 0.2s ease-in-out;
 }
-
 
 /* --- Desktop Sidebar Layout and Absolute Toggle Positioning --- */
 @media (min-width: 992px) {
-    /* --- Body Padding & Basic Layout --- */
-    body {
-        padding-top: 0 !important;
-        padding-left: 17rem !important;
-    }
-    html, body { height: 100%; margin: 0; padding: 0; } /* Basic reset */
-
-    /* --- Desktop Sidebar Styles --- */
     #sideNav {
         box-sizing: border-box !important;
-        padding: 1rem 0 !important; /* Add some internal padding */
+        padding: 1rem 0 !important;
         text-align: center !important;
         position: fixed !important;
         top: 0 !important;
         left: 0 !important;
-        display: flex !important; /* FORCE flex */
-        flex-direction: column !important; /* FORCE column */
+        display: flex !important;
+        flex-direction: column !important;
         width: 17rem !important;
-        height: 100vh !important; /* FORCE height */
+        height: 100vh !important;
         z-index: 1050 !important;
-        /* THE CORE CENTERING RULE */
-        justify-content: center !important; /* FORCE vertical centering */
-        align-items: center !important; /* Center items horizontally too */
-        /* background-color: lime !important; /* TEMP DEBUG BG */
+        justify-content: center !important;
+        align-items: center !important;
     }
 
-    /* Reset direct children aggressively */
     #sideNav > * {
         flex-grow: 0 !important;
         flex-shrink: 0 !important;
@@ -355,18 +405,17 @@ img, svg { vertical-align: middle; }
 
     #sideNav .navbar-brand {
         display: flex !important;
-        /* Forcing margin */
-        margin: 0 auto 2rem auto !important; /* Top 0, L/R auto, Bottom 2rem */
+        margin: 0 auto 2rem auto !important;
         padding: 0.5rem !important;
-        width: fit-content; /* Let brand size itself */
+        width: fit-content;
         max-width: 100%;
+        position: relative;
+        z-index: 1;
     }
 
     #sideNav .navbar-brand .img-profile {
         max-width: 10rem !important;
         max-height: 10rem !important;
-        border: 0.5rem solid rgba(255, 255, 255, 0.2) !important;
-        border-color: var(--profile-border-color, rgba(255, 255, 255, 0.2)) !important;
     }
 
     #sideNav .navbar-collapse {
@@ -374,37 +423,38 @@ img, svg { vertical-align: middle; }
         flex-direction: column !important;
         align-items: center !important;
         width: 100% !important;
-        position: relative !important; /* Keep for toggle */
-        margin: 0 !important; /* Reset margin */
-        padding: 0 !important; /* Reset padding */
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     #sideNav .navbar-collapse .navbar-nav {
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important; /* Keep internal centering */
+        justify-content: center !important;
         width: 100% !important;
-        padding: 0 !important; /* Reset padding initially */
-        padding-bottom: 5rem !important; /* ADD BACK padding for toggle */
+        padding: 0 !important;
+        padding-bottom: 5rem !important;
         list-style: none !important;
-        margin: 0 !important; /* Reset margin */
+        margin: 0 !important;
     }
 
     #sideNav .navbar-collapse .navbar-nav .nav-item {
         width: 100% !important;
         margin: 0 !important;
+        position: relative;
+        z-index: 1;
     }
 
     #sideNav .navbar-collapse .navbar-nav .nav-item .nav-link {
         display: block !important;
         padding: 0.85rem 1.5rem !important;
-         /* Keep transitions if desired */
-        transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out, padding-left 0.25s ease-in-out;
+        transition: background-color 0.25s ease-in-out, padding-left 0.25s ease-in-out;
     }
      #sideNav .navbar-nav .nav-item .nav-link:hover {
         color: #ffffff !important;
         background-color: rgba(255, 255, 255, 0.1) !important;
         padding-left: 2rem !important;
+        transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out, padding-left 0.25s ease-in-out;
     }
      #sideNav .navbar-nav .nav-item .nav-link.active {
         color: #ffffff !important;
@@ -412,7 +462,6 @@ img, svg { vertical-align: middle; }
         padding-left: 2rem !important;
     }
 
-    /* --- Absolute Toggle Positioning --- */
     #sideNav .nav-item.mode-toggle {
         position: absolute !important;
         bottom: 0 !important;
@@ -422,29 +471,21 @@ img, svg { vertical-align: middle; }
         margin: 0 !important;
         padding: 0.75rem 1.5rem !important;
         box-sizing: border-box !important;
+        z-index: 2;
     }
 
     #sideNav .mode-toggle .mode-toggle-container {
-        /* Inner container styles */
          justify-content: center !important;
          width: 100% !important;
          padding-top: 0 !important;
          padding-bottom: 0 !important;
     }
-
-    /* --- Other rules likely unaffected --- */
-    section.resume-section { padding-left: 3rem; padding-right: 3rem; }
-    .col-lg-5 { flex: 0 0 auto; width: 41.66666667%; }
-    .col-lg-7 { flex: 0 0 auto; width: 58.33333333%; }
-    .navbar-expand-lg { flex-wrap: nowrap; justify-content: flex-start; }
-    .navbar-expand-lg .navbar-toggler { display: none; }
-    .d-lg-block { display: block !important; }
-    .d-lg-none { display: none !important; }
 }
-/* --- Navbar Dark Variant (Bootstrap default, adjust as needed) --- */
+
+/* --- Navbar Dark Variant (mostly overridden) --- */
 .navbar-dark .navbar-brand { color: #fff; }
 .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus { color: #fff; }
-.navbar-dark .navbar-nav .nav-link { color: rgba(255, 255, 255, 0.55); } /* Base link color */
+.navbar-dark .navbar-nav .nav-link { color: rgba(255, 255, 255, 0.55); }
 .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus { color: rgba(255, 255, 255, 0.75); }
 .navbar-dark .navbar-nav .show > .nav-link, .navbar-dark .navbar-nav .nav-link.active { color: #fff; }
 .navbar-dark .navbar-toggler { color: rgba(255, 255, 255, 0.55); border-color: rgba(255, 255, 255, 0.1); }
@@ -457,20 +498,19 @@ img, svg { vertical-align: middle; }
     font-size: 1.2em;
     font-weight: 700;
     line-height: 1;
-    color: #fff; /* Default badge text */
+    color: #fff;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 0.25rem;
-    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out, background-color 0.3s ease, color 0.3s ease;
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out, background-color 3s ease, color 3s ease;
 }
 .badge:empty { display: none; }
 .badge:hover {
     transform: scale(1.05);
-    /* Adjusted in dark mode */
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out, background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Background colors for badges (can be overridden in dark mode) */
 .bg-primary { background-color: var(--bs-primary) !important; }
 .bg-secondary { background-color: var(--bs-secondary) !important; }
 
@@ -487,7 +527,7 @@ img, svg { vertical-align: middle; }
     .d-lg-none { display: none !important; }
 }
 .w-100 { width: 100% !important; }
-.h-100 { height: 100% !important; } /* Added for sidebar flex */
+.h-100 { height: 100% !important; }
 .flex-fill { flex: 1 1 auto !important; }
 .flex-row { flex-direction: row !important; }
 .flex-column { flex-direction: column !important; }
@@ -496,9 +536,9 @@ img, svg { vertical-align: middle; }
 .flex-shrink-0 { flex-shrink: 0 !important; }
 @media (min-width: 768px) { .flex-md-row { flex-direction: row !important; } }
 .justify-content-between { justify-content: space-between !important; }
-.justify-content-center { justify-content: center !important; } /* Added */
+.justify-content-center { justify-content: center !important; }
 .align-items-center { align-items: center !important; }
-.align-items-start { align-items: flex-start !important; } /* Added */
+.align-items-start { align-items: flex-start !important; }
 .m-0 { margin: 0 !important; }
 .mb-0 { margin-bottom: 0 !important; }
 .mb-1 { margin-bottom: 0.25rem !important; }
@@ -506,32 +546,25 @@ img, svg { vertical-align: middle; }
 .mb-3 { margin-bottom: 1rem !important; }
 .mb-4 { margin-bottom: 1.5rem !important; }
 .mb-5 { margin-bottom: 3rem !important; }
-/* mt-auto is removed from toggle li, may not be needed elsewhere */
-/* .mt-auto { margin-top: auto !important; } */
 .mt-3 { margin-top: 1rem !important; }
 .mt-4 { margin-top: 1.5rem !important; }
 .me-1 { margin-right: 0.25rem !important; }
 .me-2 { margin-right: 0.5rem !important; }
-.ms-2 { margin-left: 0.5rem !important; } /* Added */
+.ms-1 { margin-left: 0.25rem !important; }
+.ms-2 { margin-left: 0.5rem !important; }
 .mx-auto { margin-right: auto !important; margin-left: auto !important; }
 .p-0 { padding: 0 !important; }
-.py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; } /* Added */
-.p-3 { padding: 1rem !important; } /* Added */
+.py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+.p-3 { padding: 1rem !important; }
 .text-decoration-none { text-decoration: none !important; }
-.text-primary { color: var(--bs-primary) !important; transition: color 0.3s ease; }
-.text-secondary { color: var(--bs-secondary) !important; transition: color 0.3s ease; }
+.text-primary { color: var(--bs-primary) !important; transition: color 3s ease; }
+.text-secondary { color: var(--bs-secondary) !important; transition: color 3s ease; }
 .text-warning { color: var(--bs-warning) !important; }
 .text-white-50 { color: rgba(255, 255, 255, 0.5) !important; }
-.visually-hidden { /* Bootstrap utility */
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
+.visually-hidden {
+    position: absolute !important; width: 1px !important; height: 1px !important;
+    padding: 0 !important; margin: -1px !important; overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important;
 }
 .bg-transparent { background-color: transparent !important; }
 .rounded-circle { border-radius: 50% !important; }
@@ -543,7 +576,7 @@ img, svg { vertical-align: middle; }
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 10; /* Above content/plane, below sidebar */
+    z-index: 10;
     pointer-events: none;
     overflow: hidden;
 }
@@ -551,7 +584,7 @@ img, svg { vertical-align: middle; }
 /* Apply cloud filter defined by variable */
 .cloudLayer {
     filter: var(--cloud-filter);
-    transition: filter 0.5s ease; /* Smooth transition for cloud color */
+    transition: filter 3s ease;
 }
 
 /* --- Subheading Style --- */
@@ -560,10 +593,10 @@ img, svg { vertical-align: middle; }
     text-transform: uppercase;
     font-weight: 500;
     font-size: 1.5rem;
-    color: var(--bs-heading-color); /* Use heading color */
-    transition: color 0.3s ease;
+    color: var(--bs-heading-color);
+    transition: color 3s ease;
 }
-#experience .subheading { font-size: 1.2rem; } /* Specific size for experience */
+#experience .subheading { font-size: 1.2rem; }
 
 /* --- Social Icons --- */
 .social-icons .social-icon {
@@ -572,15 +605,18 @@ img, svg { vertical-align: middle; }
     justify-content: center;
     height: 3.5rem;
     width: 3.5rem;
-    background-color: var(--bs-secondary); /* Use secondary color as base */
+    background-color: var(--bs-secondary);
     color: #fff;
     border-radius: 100%;
     font-size: 1.5rem;
     margin-right: 1.5rem;
-    transition: background-color 0.2s ease-in-out;
+    transition: background-color 3s ease-in-out, color 3s ease-in-out;
 }
 .social-icons .social-icon:last-child { margin-right: 0; }
-.social-icons .social-icon:hover { background-color: var(--bs-primary); }
+.social-icons .social-icon:hover {
+    background-color: var(--bs-primary);
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
 
 /* --- Dev Icons --- */
 .dev-icons { font-size: 1.5rem; line-height: 1; }
@@ -590,15 +626,23 @@ img, svg { vertical-align: middle; }
     margin: 0 0.25rem 0.5rem;
     transition: transform 0.2s ease-in-out;
 }
-.dev-icons .list-inline-item svg {
-    color: var(--bs-secondary); /* Use secondary color */
+.dev-icons .list-inline-item svg,
+.dev-icons .list-inline-item i {
+    color: var(--bs-secondary);
     vertical-align: middle;
-    transition: color 0.2s ease-in-out;
+    transition: color 3s ease-in-out;
     width: 2em;
     height: 2em;
+    line-height: 2em;
+    text-align: center;
+    display: inline-block;
 }
 .dev-icons .list-inline-item:hover { transform: scale(1.15); }
-.dev-icons .list-inline-item:hover svg { color: var(--bs-primary); }
+.dev-icons .list-inline-item:hover svg,
+.dev-icons .list-inline-item:hover i {
+    color: var(--bs-primary);
+    transition: color 0.2s ease-in-out;
+}
 
 /* --- Resume Sections --- */
 section.resume-section {
@@ -609,7 +653,7 @@ section.resume-section {
     padding-top: 5rem;
     padding-bottom: 5rem;
     max-width: 75rem;
-    min-height: 100vh; /* Ensure sections take full viewport height */
+    min-height: 100vh;
 }
 section.resume-section .resume-section-content { width: 100%; }
 @media (min-width: 992px) {
@@ -621,42 +665,74 @@ section.resume-section .resume-section-content { width: 100%; }
 
 /* --- Hover Effects --- */
 .skills-summary {
-    transition: font-weight 0.2s ease-in-out, font-style 0.2s ease-in-out, color 0.2s ease-in-out;
+    transition: font-weight 0.2s ease-in-out, font-style 0.2s ease-in-out, color 3s ease-in-out;
 }
 .skills-summary:hover {
     font-weight: bold;
-    color: var(--bs-heading-color); /* Use heading color on hover */
+    color: var(--bs-heading-color);
+    transition: font-weight 0.2s ease-in-out, font-style 0.2s ease-in-out, color 0.2s ease-in-out;
 }
-.scale-on-hover {
-    transition: transform 0.3s ease-in-out;
-    display: inline-block; /* Needed for transform */
-}
-.scale-on-hover:hover { transform: scale(1.1); }
-.scale-on-hover-09 {
-    transition: transform 0.3s ease-in-out;
-    display: inline-block; /* Needed for transform */
-}
-.scale-on-hover-09:hover { transform: scale(0.95); }
 
-/* --- Background Animation --- */
+.scale-on-hover {
+    transition: transform 0.3s ease-in-out; /* Only transform */
+    display: inline-block;
+}
+.scale-on-hover:hover {
+    transform: scale(1.1);
+}
+
+.scale-on-hover-09 {
+    transition: transform 0.3s ease-in-out; /* Only transform */
+    display: inline-block;
+}
+.scale-on-hover-09:hover {
+    transform: scale(0.95);
+}
+
+/* Specific Rules for Headings with .scale-on-hover */
+h2.scale-on-hover,
+h3.scale-on-hover { /* Applied to both h2 and h3 with this class */
+    /* Explicitly combine the desired transitions for these specific elements */
+    transition: color 3s ease, transform 0.3s ease-in-out;
+}
+
+/* --- Background Animation - Opacity Fade Method --- */
 .animation-wrapper {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: var(--animation-bg); /* Use variable for background */
-    z-index: -1;
+    z-index: -2;
     overflow: hidden;
     pointer-events: none;
-    transition: background-image 0.5s ease; /* Smooth transition for sky */
+    isolation: isolate;
+}
+
+.animation-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 50% 100%, whitesmoke 0, skyblue 100%);
+    z-index: -2;
+}
+
+.animation-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to bottom, #253443, #969c9f);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 3s ease;
 }
 
 /* --- SVG Plane Styling --- */
-/* Apply filter using CSS variable - only applied in dark mode via variable */
 .plane {
     filter: var(--plane-filter, none);
-    transition: filter 0.5s ease;
+    transition: filter 3s ease;
+    position: relative;
+    z-index: 1;
 }
 
 /* ==========================================================================
@@ -664,22 +740,31 @@ section.resume-section .resume-section-content { width: 100%; }
     ========================================================================== */
 body.dark-mode {
     /* Define Dark Mode Color Palette */
-    --bs-body-bg: #1a1a1a; /* Very dark gray */
-    --bs-body-color: #dbdbdb; /* Light gray text */
-    --bs-heading-color: #dbdbdb; /* Off-white headings */
-    --bs-primary: #000000; /* Lighter blue for primary */ /* Adjusted primary for dark */
-    --bs-secondary: #a1a1a1cf; /* Medium gray for secondary */
-    --bs-gray-dark: #cccccc; /* Use body color for contrast */
+    --bs-body-bg: #1a1a1a;
+    --bs-body-color: #dbdbdb;
+    --bs-heading-color: #dbdbdb;
+    --bs-primary: #000000; /* Lighter blue for dark */
+    --bs-secondary: #a1a1a1cf;
+    --bs-gray-dark: #cccccc;
     --bs-gray: #aaaaaa;
-    --bs-dark: #f8f9fa; /* Use light color for dark context */
-    --bs-light: #343a40; /* Use gray-dark for light context */
- 
-    --animation-bg: linear-gradient(to bottom, #253443, #969c9f); 
-    --cloud-filter: grayscale(90%) brightness(70%) contrast(1.1); 
+    --bs-dark: #f8f9fa;
+    --bs-light: #343a40;
+    --profile-border-color: rgba(255, 255, 255, 0.1); /* Darker border variable */
+
+    /* Cloud and Plane filters */
+    --cloud-filter: grayscale(90%) brightness(70%) contrast(1.1);
     --plane-filter: grayscale(100%) brightness(0.8) contrast(0.95);
 }
 
 /* --- Dark Mode Overrides --- */
+
+body.dark-mode .animation-wrapper::after {
+    opacity: 1;
+}
+
+body.dark-mode #sideNav::after {
+    opacity: 1;
+}
 
 body.dark-mode hr {
     opacity: 0.15;
@@ -689,40 +774,29 @@ body.dark-mode a {
     color: var(--bs-primary);
 }
 body.dark-mode a:hover {
-      /* Slightly brighter primary on hover in dark mode */
     color: color-mix(in srgb, var(--bs-primary), white 15%);
+    transition: color 0.2s ease;
 }
 
-body.dark-mode .img-profile {
-    border-color: rgba(255, 255, 255, 0.1); /* Darker border */
-}
-
-/* Sidebar in Dark Mode */
-body.dark-mode #sideNav {
-    background: linear-gradient(to bottom, #1d1f21, #393d3f); /* Dark gradient */
-}
 body.dark-mode #sideNav .navbar-nav .nav-item .nav-link {
-    color: rgba(255, 255, 255, 0.65); /* Slightly brighter link color */
+    color: rgba(255, 255, 255, 0.65);
 }
 body.dark-mode #sideNav .navbar-nav .nav-item .nav-link:hover {
     color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.08); /* Less prominent hover */
+    background-color: rgba(255, 255, 255, 0.08);
+    transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out, padding-left 0.25s ease-in-out;
 }
 body.dark-mode #sideNav .navbar-nav .nav-item .nav-link.active {
     color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.12); /* Less prominent active */
+    background-color: rgba(255, 255, 255, 0.12);
 }
-body.dark-mode #sideNav .navbar-brand .img-profile {
-      border-color: rgba(255, 255, 255, 0.1); /* Match img-profile */
-}
-/* Toggle Icons in Dark Mode */
-body.dark-mode #sideNav .mode-toggle i { /* Keep if direct i children exist in toggle */
+body.dark-mode #sideNav .mode-toggle i {
     color: rgba(255, 255, 255, 0.65);
 }
 body.dark-mode #sideNav .mode-toggle i:hover {
     color: #ffffff;
+    transition: color 0.2s ease-in-out;
 }
-/* Toggle Switch in Dark Mode */
 body.dark-mode #sideNav .form-check-input {
     background-color: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.3);
@@ -733,91 +807,71 @@ body.dark-mode #sideNav .form-check-input:checked {
     border-color: var(--bs-primary);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
 }
- 
 
-/* Text & Background Colors in Dark Mode */
-body.dark-mode .text-primary {
-    color: var(--bs-primary) !important;
-}
-body.dark-mode .text-secondary {
-    color: var(--bs-secondary) !important;
-}
-/* Badge Backgrounds/Colors in Dark Mode */
 body.dark-mode .bg-primary {
-    background-color: #303030 !important; /* Dark gray background */
-    color: #ddd !important; /* Light gray text */
+    background-color: #303030 !important;
+    color: #ddd !important;
 }
 body.dark-mode .bg-secondary {
-    background-color: var(--bs-secondary) !important; /* Medium gray background (#888) */
-    color: #cccccc !important; /* Off-white text for better contrast */
+    background-color: #555 !important;
+    color: #ccc !important;
 }
 
-/* Badges in Dark Mode - Hover */
-body.dark-mode .badge {
-      /* Base styles already transition */
-}
 body.dark-mode .badge:hover {
-    transform: scale(1.05); /* Keep scale effect */
-    filter: brightness(1.15); /* Add subtle brightness increase */
+    transform: scale(1.05);
+    filter: brightness(1.15);
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out, background-color 0.2s ease, color 0.2s ease;
 }
 
-
-/* Social Icons in Dark Mode */
 body.dark-mode .social-icons .social-icon {
-    background-color: #444; /* Darker gray */
+    background-color: #444;
     color: #eee;
 }
 body.dark-mode .social-icons .social-icon:hover {
-    background-color: var(--bs-primary); /* Use primary color */
-    /* color: #eee; /* Keep text light on primary hover */
+    background-color: var(--bs-primary);
+    color: #1a1a1a;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-/* Dev Icons in Dark Mode */
-body.dark-mode .dev-icons .list-inline-item svg {
-    color: var(--bs-secondary); /* Use secondary gray */
+body.dark-mode .dev-icons .list-inline-item svg,
+body.dark-mode .dev-icons .list-inline-item i {
+    color: var(--bs-secondary);
 }
-body.dark-mode .dev-icons .list-inline-item:hover svg {
-    color: var(--bs-primary); /* Use primary color */
+body.dark-mode .dev-icons .list-inline-item:hover svg,
+body.dark-mode .dev-icons .list-inline-item:hover i {
+    color: var(--bs-primary);
+    transition: color 0.2s ease-in-out;
 }
 
-/* Awards List Text Color */
 body.dark-mode #awards ul.fa-ul li a {
-      color: var(--bs-body-color); /* Match body text */
+     color: var(--bs-body-color);
 }
 body.dark-mode #awards ul.fa-ul li a:hover {
-      color: var(--bs-primary); /* Highlight on hover */
+     color: var(--bs-primary);
+     transition: color 0.2s ease-in-out;
+}
+body.dark-mode #awards ul.fa-ul li {
+    /* Hover transition is already set */
 }
 body.dark-mode #awards ul.fa-ul li:hover {
-      color: var(--bs-primary); /* Change list item text color too */
+     color: var(--bs-primary);
 }
- 
 
-/* Skills Summary Hover */
+
 body.dark-mode .skills-summary:hover {
-    color: var(--bs-heading-color); /* Use heading color for hover */
-}
- 
-img[src="https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg"] {
-  transition: filter 0.3s ease;
-}  
-body.dark-mode img[src="https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg"] {
-  filter: grayscale(100%);  
+    color: var(--bs-heading-color);
+    transition: font-weight 0.2s ease-in-out, font-style 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-img[src="https://www.wingwill.com.tw/wp-content/uploads/2020/08/GCP-scaled_Shared_20191125-1024x486.png"] {
-  transition: filter 0.3s ease;
-}  
-body.dark-mode img[src="https://www.wingwill.com.tw/wp-content/uploads/2020/08/GCP-scaled_Shared_20191125-1024x486.png"] {
-  filter: grayscale(100%);  
-}
+/* Image Filters Applied in Dark Mode */
+body.dark-mode img[src*="SAP_2011_logo.svg"],
+body.dark-mode img[src*="GCP-scaled_Shared"],
 body.dark-mode img[src="assets/img/profile.png"] {
-  filter: grayscale(100%);  
+  filter: grayscale(100%);
+  /* Base transition defined earlier handles the timing */
 }
 
 body.dark-mode ul.fa-ul .fa-li {
   filter: grayscale(100%);
-  /* Note: This will override the explicit color set below if you uncommented that */
-  /* If you want *both* grayscale AND a specific base gray color,
-     you might need to set color: gray; here as well, but
-     filter:grayscale is usually sufficient. */
+  /* Base transition defined earlier handles the timing */
 }
