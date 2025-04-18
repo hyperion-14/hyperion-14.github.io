@@ -865,7 +865,7 @@ body.dark-mode .skills-summary:hover {
 /* Image Filters Applied in Dark Mode */
 body.dark-mode img[src*="SAP_2011_logo.svg"],
 body.dark-mode img[src*="GCP-scaled_Shared"],
-body.dark-mode img[src="assets/img/profile.png"] {
+body.dark-mode img[src="assets/img/profile1.png"] {
   filter: grayscale(100%);
   /* Base transition defined earlier handles the timing */
 }
