@@ -28,6 +28,7 @@
     --bs-body-color: #6c757d; /* Default text color */
     --bs-body-bg: #fff; /* Default background */
     --bs-heading-color: #343a40; /* Default heading color */
+    --bs-subheading-color: #747474; 
     --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
@@ -592,7 +593,7 @@ img[src*="GCP-scaled_Shared"] {
     text-transform: uppercase;
     font-weight: 500;
     font-size: 1.5rem;
-    color: var(--bs-heading-color);
+    color: var(--bs-subheading-color);
     transition: color 3s ease;
 }
 #experience .subheading { font-size: 1.2rem; }
@@ -865,7 +866,7 @@ body.dark-mode .skills-summary:hover {
 /* Image Filters Applied in Dark Mode */
 body.dark-mode img[src*="SAP_2011_logo.svg"],
 body.dark-mode img[src*="GCP-scaled_Shared"],
-body.dark-mode img[src="assets/img/profile1.jpg"] {
+body.dark-mode img[src="assets/img/profile1.png"] {
   filter: grayscale(100%);
   /* Base transition defined earlier handles the timing */
 }
