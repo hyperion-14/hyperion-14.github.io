@@ -1050,7 +1050,7 @@ body.dark-mode .experience-item::before {
 .about-stats {
     display: flex;
     gap: 2.5rem;
-    margin: 1.5rem 0 2rem;
+    margin: 1.5rem 0 0.2rem;
     flex-wrap: wrap;
 }
 .stat-item {
