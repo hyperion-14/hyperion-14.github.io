@@ -1,3 +1,14 @@
+/* ***** Cloud Middle Container Style ***** */
+#cloud-middle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1040;
+    pointer-events: none;
+    overflow: hidden;
+}
 body.dark-mode .cert-card.cert-professional {
     border: 1.5px solid color-mix(in srgb, var(--bs-primary) 22%, transparent) !important;
 }
@@ -598,7 +609,7 @@ img[src*="GCP-scaled_Shared"] {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 10;
+    z-index: 1100;
     pointer-events: none;
     overflow: hidden;
 }
@@ -670,18 +681,18 @@ img[src*="GCP-scaled_Shared"] {
 section.resume-section {
     display: flex;
     align-items: center;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 7rem;
+    padding-bottom: 7rem;
     max-width: 75rem;
     min-height: 100vh;
 }
 section.resume-section .resume-section-content { width: 100%; }
 @media (min-width: 992px) {
     section.resume-section {
-        padding-left: 3rem;
-        padding-right: 3rem;
+        padding-left: 5rem;
+        padding-right: 5rem;
     }
 }
 
@@ -1169,14 +1180,20 @@ body.dark-mode .hero-profile-mobile {
     opacity: 0;
     animation: pill-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     animation-delay: calc(var(--i) * 85ms + 800ms);
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 3s ease;
+    transition: font-weight 0.2s;
+    background: transparent !important;
 }
-.skill-pill:hover {
-    background: var(--bs-primary);
-    color: #fff;
+ .skill-pill:hover {
+    font-weight: 900;
+    color: #111 !important;
+    background: transparent !important;
+    border-color: #111 !important;
+    transform: scale(1.08);
+    z-index: 1;
+    transition: color 0.18s, border-color 0.18s, font-weight 0.2s, transform 0.18s;
 }
 body.dark-mode .skill-pill:hover {
-    color: var(--bs-body-bg);
+    color: inherit !important;
 }
 @keyframes pill-pop {
     from { opacity: 0; transform: scale(0.7) translateY(8px); }

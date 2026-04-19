@@ -103,12 +103,15 @@ function createCloudLayer(layerConfig) {
         const scaleFactor = randomRange(config.minCloudScale, config.maxCloudScale);
         const { minY, maxY } = calculateYRange();
         const baseY = (minY >= maxY) ? minY : randomRange(minY, maxY);
-        const startX = screenWidth + randomRange(200, config.layerBaseSpread * scaleFactor * 1.5 + 800);
+        const startX = screenWidth + randomRange(100, config.layerBaseSpread * scaleFactor * 2 + 1200);
+        // Add subtle diagonal drift (randomly left or right)
+        const drift = (Math.random() - 0.5) * 0.2; // -0.1 to 0.1 px per frame
 
         cloudBase.dataset.x = startX;
         cloudBase.dataset.baseY = baseY;
         cloudBase.dataset.speed = randomRange(config.minSpeed, config.maxSpeed);
         cloudBase.dataset.scaleFactor = scaleFactor;
+        cloudBase.dataset.drift = drift;
         if (config.enableBobbing) {
             cloudBase.dataset.bobbingMagnitude = randomRange(config.minBobbingMag, config.maxBobbingMag) * (scaleFactor * 0.5 + 0.5);
             cloudBase.dataset.bobbingSpeedFactor = randomRange(config.minBobbingSpeedFactor, config.maxBobbingSpeedFactor);
@@ -121,11 +124,13 @@ function createCloudLayer(layerConfig) {
             console.error(`Cannot append cloud for ${config.containerSelector}, container not found.`);
             return;
         }
-        const numLayers = Math.max(config.minLayersPerCloud, Math.round(randomRange(config.minLayersPerCloud, config.maxLayersPerCloudBase) * scaleFactor));
+        // More natural: sometimes fewer, sometimes more layers
+        const numLayers = Math.max(config.minLayersPerCloud, Math.round(randomRange(config.minLayersPerCloud * 0.7, config.maxLayersPerCloudBase * 1.2) * scaleFactor));
         const cloudSpecificLayers = [];
         for (let j = 0; j < numLayers; j++) {
             const layer = document.createElement('img');
-            const baseOpacity = randomRange(config.minLayerOpacity, config.maxLayerOpacity);
+            // More natural: add more opacity randomness
+            const baseOpacity = Math.max(0.05, Math.min(1, randomRange(config.minLayerOpacity * 0.7, config.maxLayerOpacity * 1.2)));
             layer.className = 'cloudLayer';
             layer.src = config.cloudImageUrl;
             layer.loading = 'lazy';
@@ -210,6 +215,8 @@ function createCloudLayer(layerConfig) {
             if (!cloudBase.dataset.x) return;
             let currentX = parseFloat(cloudBase.dataset.x);
             currentX -= parseFloat(cloudBase.dataset.speed) * deltaTime;
+            // Add subtle drift (diagonal movement)
+            currentX += parseFloat(cloudBase.dataset.drift || 0) * deltaTime * 60;
             let currentY = parseFloat(cloudBase.dataset.baseY);
             if (config.enableBobbing && cloudBase.dataset.bobbingMagnitude) {
                 const bobbingMagnitude = parseFloat(cloudBase.dataset.bobbingMagnitude);
