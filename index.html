@@ -77,6 +77,7 @@
 </head>
 
 <body id="page-top">
+    <div id="scroll-progress"></div>
     <div class="animation-wrapper">
         <svg id="plane" class="plane" xmlns="http://www.w3.org/2000/svg" width="500" height="260" viewBox="0 0 500 260">
             <linearGradient id="plane_grad_a" gradientUnits="userSpaceOnUse" x1="142.084" y1="248.724" x2="125.305"
@@ -140,15 +141,31 @@
     <div class="container-fluid p-0">
         <section class="resume-section" id="about">
             <div class="resume-section-content">
-                <h1 class="mb-0">
+                <img src="assets/img/profile1.jpg" alt="Deepak Joshy" class="hero-profile-mobile d-block d-lg-none reveal mb-4" />
+                <h1 class="mb-0 reveal">
                     <span class="text-primary">Deepak</span>
                     Joshy
                 </h1>
-                <p class="lead mb-4 skills-summary">SAP Full Stack Developer | SAP Certified </p>
-                <p class="lead mb-5"><span class="skills-summary">S/4 HANA</span> | <span
-                        class="skills-summary">Fiori</span> | <span class="skills-summary">Restful ABAP</span> | <span
-                        class="skills-summary">ABAP on HANA</span> | <span class="skills-summary">GCP</span> | <span class="skills-summary">AI</span></p>
-                <div class="social-icons">
+                <p class="lead mb-2 skills-summary" id="typewriter" data-text="SAP Full Stack Developer | SAP Certified"></p>
+                <div class="skills-pills mb-4">
+                    <span class="skill-pill" style="--i:0">S/4 HANA</span>
+                    <span class="skill-pill" style="--i:1">Fiori</span>
+                    <span class="skill-pill" style="--i:2">Restful ABAP</span>
+                    <span class="skill-pill" style="--i:3">ABAP on HANA</span>
+                    <span class="skill-pill" style="--i:4">GCP</span>
+                    <span class="skill-pill" style="--i:5">AI</span>
+                </div>
+                <div class="about-stats reveal reveal-delay-3">
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="10" data-suffix="+">10+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="5">5</span>
+                        <span class="stat-label">Certifications</span>
+                    </div>
+                </div>
+                <div class="social-icons reveal reveal-delay-4">
                     <a class="social-icon" href="https://www.linkedin.com/in/deepakjoshy" target="_blank"
                         rel="noopener noreferrer" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                     <a class="social-icon" href="https://github.com/deepakjoshy" target="_blank"
@@ -160,47 +177,58 @@
                 </div>
             </div>
         </section>
-        <hr class="m-0" />
+        <div class="section-divider"></div>
         <section class="resume-section" id="experience">
             <div class="resume-section-content">
-                <h2 class="mb-5 scale-on-hover">Experience</h2>
-                <div class="d-flex flex-column flex-md-row justify-content-between mb-5 scale-on-hover-09">
-                    <div class="flex-grow-1 ">
-                        <h3 class="mb-0">Google</h3>
-                        <div class="subheading mb-3">Application Engineer</div>
+                <h2 class="mb-5 scale-on-hover section-heading-accent reveal">Experience</h2>
+                <div class="experience-timeline">
+                    <div class="experience-item reveal reveal-delay-1">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                            <div class="flex-grow-1">
+                                <h3 class="mb-0">Google</h3>
+                                <div class="subheading mb-3">Application Engineer</div>
+                            </div>
+                            <div class="flex-shrink-0"><span class="text-primary">August 2022 - Present</span></div>
+                        </div>
                     </div>
-                    <div class="flex-shrink-0"><span class="text-primary">August 2022 - Present</span></div>
-                </div>
-                <div class="d-flex flex-column flex-md-row justify-content-between mb-5 scale-on-hover-09">
-                    <div class="flex-grow-1">
-                        <h3 class="mb-0">Walmart Global Tech</h3>
-                        <div class="subheading mb-3">Software Engineer</div>
+                    <div class="experience-item reveal reveal-delay-2">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                            <div class="flex-grow-1">
+                                <h3 class="mb-0">Walmart Global Tech</h3>
+                                <div class="subheading mb-3">Software Engineer</div>
+                            </div>
+                            <div class="flex-shrink-0"><span class="text-primary">July 2020 - July 2022</span></div>
+                        </div>
                     </div>
-                    <div class="flex-shrink-0"><span class="text-primary">July 2020 - July 2022</span></div>
-                </div>
-                <div class="d-flex flex-column flex-md-row justify-content-between mb-5 scale-on-hover-09">
-                    <div class="flex-grow-1">
-                        <h3 class="mb-0">Capgemini</h3>
-                        <div class="subheading mb-3">Consultant</div>
+                    <div class="experience-item reveal reveal-delay-3">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                            <div class="flex-grow-1">
+                                <h3 class="mb-0">Capgemini</h3>
+                                <div class="subheading mb-3">Consultant</div>
+                            </div>
+                            <div class="flex-shrink-0"><span class="text-primary">August 2018 - July 2020</span></div>
+                        </div>
                     </div>
-                    <div class="flex-shrink-0"><span class="text-primary">August 2018 - July 2020</span></div>
-                </div>
-                <div class="d-flex flex-column flex-md-row justify-content-between mb-5 scale-on-hover-09">
-                    <div class="flex-grow-1">
-                        <h3 class="mb-0">LTIMindtree</h3>
-                        <div class="subheading mb-3">Software Engineer</div>
+                    <div class="experience-item reveal reveal-delay-4">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                            <div class="flex-grow-1">
+                                <h3 class="mb-0">LTM</h3>
+                                <div class="subheading mb-3">Software Engineer</div>
+                            </div>
+                            <div class="flex-shrink-0"><span class="text-primary">September 2014 - July 2018</span></div>
+                        </div>
                     </div>
-                    <div class="flex-shrink-0"><span class="text-primary">September 2014 - July 2018</span></div>
                 </div>
             </div>
         </section>
-        <hr class="m-0" />
+        <div class="section-divider"></div>
         <section class="resume-section" id="skills">
             <div class="resume-section-content">
-                <h2 class="mb-5 scale-on-hover">Skills</h2>
+                <h2 class="mb-4 scale-on-hover section-heading-accent reveal">Skills</h2>
+
                 <div class="row">
                     <div class="col-lg-7">
-                        <a target="_blank" rel="noopener noreferrer "
+                        <a target="_blank" rel="noopener noreferrer"
                             class="text-decoration-none align-middle d-inline-block mb-1 scale-on-hover">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg"
                                 alt="SAP Logo" width="30%" class="me-2 align-text-bottom" />
@@ -211,8 +239,7 @@
                             <span class="badge bg-primary me-1 mb-1" title="ABAP on HANA">ABAP on HANA</span>
                             <span class="badge bg-primary me-1 mb-1" title="Object Oreinted ABAP">OO ABAP</span>
                             <span class="badge bg-primary me-1 mb-1" title="Restful ABAP Programming">RAP</span>
-                            <span class="badge bg-primary me-1 mb-1"
-                                title="Business Object Processing Framework">BOPF</span>
+                            <span class="badge bg-primary me-1 mb-1" title="Business Object Processing Framework">BOPF</span>
                             <span class="badge bg-primary me-1 mb-1" title="HR ABAP">HR ABAP</span>
                             <span class="badge bg-primary me-1 mb-1" title="Workflow">Workflow</span>
                             <span class="badge bg-primary me-1 mb-1" title="Adobe Forms">Adobe Forms</span>
@@ -221,26 +248,22 @@
                             <span class="badge bg-primary me-1 mb-1" title="Floor Plan Manager">FPM</span>
                             <span class="badge bg-primary me-1 mb-1" title="Personas">Personas</span>
                             <span class="badge bg-primary me-1 mb-1" title="OData">OData</span>
-                            <span class="badge bg-primary me-1 mb-1"
-                                title="Service Oriented Architecture Protocol">SOAP</span>
+                            <span class="badge bg-primary me-1 mb-1" title="Service Oriented Architecture Protocol">SOAP</span>
                             <span class="badge bg-primary me-1 mb-1" title="Application Interface Framework">AIF</span>
                             <span class="badge bg-primary me-1 mb-1" title="Master Data Governance-Finance">MDG-F</span>
                             <span class="badge bg-primary me-1 mb-1" title="Business Rule Framework">BRF+</span>
                             <span class="badge bg-primary me-1 mb-1" title="Data Replication Framework">DRF</span>
-                            <span class="badge bg-primary me-1 mb-1" title="Data Migration Cockpit">Data Migration
-                                Cockpit</span>
+                            <span class="badge bg-primary me-1 mb-1" title="Data Migration Cockpit">Data Migration Cockpit</span>
                             <span class="badge bg-primary me-1 mb-1" title="API-Management">API-M</span>
                             <span class="badge bg-primary me-1 mb-1" title="Git Enabled CTS">gCTS</span>
-                            <span class="badge bg-primary me-1 mb-1" title="ABAP SDK for Google Cloud Platform">ABAP SDK
-                                for GCP</span>
-                            <span class="badge bg-primary me-1 mb-1" title="SAP Conversational AI">SAP Conversational
-                                AI</span>
+                            <span class="badge bg-primary me-1 mb-1" title="ABAP SDK for Google Cloud Platform">ABAP SDK for GCP</span>
+                            <span class="badge bg-primary me-1 mb-1" title="SAP Conversational AI">SAP Conversational AI</span>
                             <span class="badge bg-primary me-1 mb-1" title="Cloud Connector">Cloud Connector</span>
                         </div>
                         <br><br>
                         <a target="_blank" rel="noopener noreferrer"
-                            class="text-decoration-none align-middle d-inline-block mb-1 scale-on-hover"> <img
-                                src="https://www.wingwill.com.tw/wp-content/uploads/2020/08/GCP-scaled_Shared_20191125-1024x486.png"
+                            class="text-decoration-none align-middle d-inline-block mb-1 scale-on-hover">
+                            <img src="https://www.wingwill.com.tw/wp-content/uploads/2020/08/GCP-scaled_Shared_20191125-1024x486.png"
                                 alt="Google Cloud Platform Logo" width="50%" class="me-2 align-text-bottom" />
                         </a>
                         <div class="mb-3">
@@ -253,16 +276,14 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="mb-4">
-                            <h3 class="mb-3 scale-on-hover">Web Technologies & Tools</h3>
+                            <h3 class="mb-3 scale-on-hover">Web Technologies &amp; Tools</h3>
                             <ul class="list-inline dev-icons">
                                 <li class="list-inline-item" title="HTML5"><i class="fab fa-html5 fa-2x"></i></li>
                                 <li class="list-inline-item" title="CSS3"><i class="fab fa-css3-alt fa-2x"></i></li>
-                                <li class="list-inline-item" title="JavaScript"><i class="fab fa-js-square fa-2x"></i>
-                                </li>
+                                <li class="list-inline-item" title="JavaScript"><i class="fab fa-js-square fa-2x"></i></li>
                                 <li class="list-inline-item" title="Node.js"><i class="fab fa-node-js fa-2x"></i></li>
                                 <li class="list-inline-item" title="GitHub"><i class="fab fa-github fa-2x"></i></li>
-                                <li class="list-inline-item" title="Raspberry Pi"><i
-                                        class="fab fa-raspberry-pi fa-2x"></i></li>
+                                <li class="list-inline-item" title="Raspberry Pi"><i class="fab fa-raspberry-pi fa-2x"></i></li>
                                 <li class="list-inline-item" title="Terminal"><i class="fas fa-terminal fa-2x"></i></li>
                             </ul>
                         </div>
@@ -283,11 +304,11 @@
                 </div>
             </div>
         </section>
-        <hr class="m-0" />
+        <div class="section-divider"></div>
         <section class="resume-section" id="education">
             <div class="resume-section-content">
-                <h2 class="mb-5 scale-on-hover">Education</h2>
-                <div class="d-flex flex-column flex-md-row justify-content-between mb-5 scale-on-hover-09">
+                <h2 class="mb-5 scale-on-hover section-heading-accent reveal">Education</h2>
+                <div class="d-flex flex-column flex-md-row justify-content-between mb-5 scale-on-hover-09 reveal reveal-delay-1">
                     <div class="flex-grow-1">
                         <h3 class="mb-0">Sathyabama University</h3>
                         <div class="subheading mb-3">Master's in Engineering</div>
@@ -295,7 +316,7 @@
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">2012 - 2014</span></div>
                 </div>
-                <div class="d-flex flex-column flex-md-row justify-content-between  mb-5 scale-on-hover-09">
+                <div class="d-flex flex-column flex-md-row justify-content-between mb-5 scale-on-hover-09 reveal reveal-delay-2">
                     <div class="flex-grow-1">
                         <h3 class="mb-0">St.Joseph's College of Engineering</h3>
                         <div class="subheading mb-3">Bachelor of Technology</div>
@@ -305,47 +326,41 @@
                 </div>
             </div>
         </section>
-        <hr class="m-0" />
+        <div class="section-divider"></div>
         <section class="resume-section" id="awards">
             <div class="resume-section-content">
-                <h2 class="mb-5 scale-on-hover">Certifications</h2>
-                <ul class="fa-ul mb-0">
-                    <li class="mt-3"><span class="fa-li"><i class="fas fa-certificate text-warning"></i></span><a
-                            href="https://www.credly.com/badges/ba8b5973-8be5-4eec-985e-cae5bce1b261/public_url"
-                            style="text-decoration:none" target="_blank">SAP Certified Professional - Solution Architect - SAP BTP</a></li>                   
-                    <li><span class="fa-li"><i class="fas fa-certificate text-warning"></i></span><a
-                            href="https://www.credly.com/badges/7fa14e88-4156-4859-9084-579c4e265b39/public_url"
-                            style="text-decoration:none" target="_blank">SAP Certified
-                            Associate - Back-End Developer - ABAP Cloud</a></li>
-                    <li><span class="fa-li"><i class="fas fa-certificate text-warning"></i></span><a
-                            href="https://www.credly.com/badges/cb698cd7-6f25-4383-9f8b-df963f265b2d/public_url"
-                            style="text-decoration:none" target="_blank">SAP Certified
-                            Associate - SAP Generative AI Developer</a></li>
-                    <li><span class="fa-li"><i class="fas fa-certificate text-warning"></i></span><a
-                            href="https://www.credly.com/badges/dc68e40c-9722-4740-8474-b98ef07fd22e/public_url"
-                            style="text-decoration:none" target="_blank">Certified
-                            Associate - SAP Fiori Application Developer</a></li> 
-                     <li><span class="fa-li"><i class="fas fa-certificate text-warning"></i></span><a
-                            href="https://www.credly.com/badges/f5964b0f-a108-46c7-a894-b74c672e7c38/public_url"
-                            style="text-decoration:none" target="_blank">S/4HANA
-                            Cloud Private Edition, Transportation Management</a></li>
-                    <br><br>
-           <!--         <li class="mt-4"><span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>Bravo Award
-                        [Walmart Global Tech, 2021]</li>
-                    <li><span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>Customer Delight Award
-                        [Capgemini, 2019]</li>
-                    <li><span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>Team Star Award [SAP Labs,
-                        2019]</li>
-                    <li><span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>Rising Star Award
-                        [Capgemini, 2018]</li>
-                    <li><span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>Star Award [LnT Infotech,
-                        2015]</li> -->
-                </ul>
+                <h2 class="mb-5 scale-on-hover section-heading-accent reveal">Certifications</h2>
+                <div class="cert-grid reveal reveal-delay-1">
+                    <a class="cert-card" href="https://www.credly.com/badges/ba8b5973-8be5-4eec-985e-cae5bce1b261/public_url" target="_blank" rel="noopener noreferrer">
+                        <p class="cert-card-title">Solution Architect — SAP BTP</p>
+                        <span class="cert-card-cta">View Badge</span>
+                    </a>
+                    <a class="cert-card" href="https://www.credly.com/badges/7fa14e88-4156-4859-9084-579c4e265b39/public_url" target="_blank" rel="noopener noreferrer">
+                        <p class="cert-card-title">Back-End Developer — ABAP Cloud</p>
+                        <span class="cert-card-cta">View Badge</span>
+                    </a>
+                    <a class="cert-card" href="https://www.credly.com/badges/cb698cd7-6f25-4383-9f8b-df963f265b2d/public_url" target="_blank" rel="noopener noreferrer">
+                        <p class="cert-card-title">Generative AI Developer</p>
+                        <span class="cert-card-cta">View Badge</span>
+                    </a>
+                    <a class="cert-card" href="https://www.credly.com/badges/dc68e40c-9722-4740-8474-b98ef07fd22e/public_url" target="_blank" rel="noopener noreferrer">
+                        <p class="cert-card-title">Fiori Application Developer</p>
+                        <span class="cert-card-cta">View Badge</span>
+                    </a>
+                    <a class="cert-card" href="https://www.credly.com/badges/f5964b0f-a108-46c7-a894-b74c672e7c38/public_url" target="_blank" rel="noopener noreferrer">
+                        <p class="cert-card-title">Transportation Management — S/4HANA Cloud</p>
+                        <span class="cert-card-cta">View Badge</span>
+                    </a>
+                </div>
             </div>
         </section>
     </div>
 
     <div id="cloud-overlay"></div>
+
+    <button id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <script src="https://cdn.cai.tools.sap/webchat/webchat.js" channelId="f02e6339-e52b-42f6-98c7-dd32fa9a96ad"
         token="d42fda3d1fa618140a3f71ecd56055ce" id="cai-webchat">
