@@ -1071,11 +1071,13 @@ body.dark-mode .experience-item::before {
     min-width: 3ch;
 }
 .stat-label {
+    display: block;
     font-size: 0.78rem;
     color: var(--bs-subheading-color);
     text-transform: uppercase;
     letter-spacing: 0.08em;
     white-space: nowrap;
+    margin-top: 0.3rem;
     transition: color 3s ease;
 }
 
