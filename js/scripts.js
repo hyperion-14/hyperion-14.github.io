@@ -88,13 +88,20 @@ window.addEventListener('DOMContentLoaded', event => {
     function animateCounter(el) {
         const target = parseInt(el.dataset.target, 10);
         const suffix = el.dataset.suffix || '';
-        const duration = 1400;
+        const duration = parseInt(el.dataset.duration, 10) || 2000;
         const startTime = performance.now();
         function tick(now) {
             const progress = Math.min((now - startTime) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-            el.textContent = Math.floor(eased * target) + suffix;
-            if (progress < 1) requestAnimationFrame(tick);
+            const eased = progress < 0.5
+                ? 4 * progress * progress * progress
+                : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+            const raw = eased * target;
+            if (progress >= 1) {
+                el.textContent = target + suffix;
+            } else {
+                el.textContent = suffix ? raw.toFixed(1) : Math.floor(raw);
+                requestAnimationFrame(tick);
+            }
         }
         requestAnimationFrame(tick);
     }

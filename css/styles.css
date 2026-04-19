@@ -1063,13 +1063,19 @@ body.dark-mode .experience-item::before {
     color: var(--bs-primary);
     line-height: 1;
     display: block;
+    width: max-content;
+    font-variant-numeric: tabular-nums;
     transition: color 3s ease;
+}
+.stat-number[data-suffix] {
+    min-width: 3ch;
 }
 .stat-label {
     font-size: 0.78rem;
     color: var(--bs-subheading-color);
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    white-space: nowrap;
     transition: color 3s ease;
 }
 

@@ -121,22 +121,108 @@
         <section class="resume-section" id="about">
             <div class="resume-section-content">
                 <img src="assets/img/profile1.jpg" alt="Portrait of Deepak Joshy, SAP Full Stack Developer" class="hero-profile-mobile d-block d-lg-none reveal mb-4" />
-                <h1 class="mb-0 reveal">
-                    <span class="text-primary">Deepak</span>
-                    Joshy
+                <h1 class="mb-0 reveal hero-name-hover" style="font-size:clamp(2.5rem,7vw,5.5rem);font-family:'Saira Extra Condensed',sans-serif;font-weight:900;letter-spacing:0.04em;line-height:1.05;transition:letter-spacing 0.25s, filter 0.25s;">
+                    <span class="text-primary hero-name-part" style="background: linear-gradient(90deg,#28749f 30%,#5fb8e4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-fill-color:transparent;transition:filter 0.25s, letter-spacing 0.25s;">Deepak</span>
+                    <span class="hero-name-part" style="color:#222;font-weight:900;letter-spacing:0.06em;transition:filter 0.25s, letter-spacing 0.25s;">Joshy</span>
                 </h1>
+                <style>
+                .hero-name-hover:hover {
+                    letter-spacing: 0.12em;
+                    filter: brightness(1.18);
+                }
+                .hero-name-hover:hover .hero-name-part {
+                    letter-spacing: 0.12em;
+                    filter: brightness(1.18);
+                }
+                </style>
                 <p class="lead mb-2 skills-summary" id="typewriter" data-text="SAP Full Stack Developer | SAP Certified"></p>
                 <!-- Skills pills moved below about-stats -->
-                <div class="about-stats reveal reveal-delay-3" style="margin-top:4.2rem;">
-                    <div class="stat-item">
-                        <span class="stat-number" data-target="10" data-suffix="+">10+</span>
-                        <span class="stat-label">Years Experience</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" data-target="5">5</span>
-                        <span class="stat-label">Certifications</span>
-                    </div>
-                </div>
+                                <div class="about-stats reveal reveal-delay-3" style="margin-top:4.2rem;">
+                                        <div class="stat-item stat-hover">
+                                            <span class="stat-number" data-target="10" data-suffix="+" data-duration="2400">0</span>
+                                            <span class="stat-label">Years Experience</span>
+                                        </div>
+                                        <div class="stat-item stat-hover">
+                                                <span class="stat-number" data-target="5" data-duration="1500">0</span>
+                                                <span class="stat-label">Certifications</span>
+                                        </div>
+                                </div>
+                                <style>
+                                .stat-hover {
+                                        transition: transform 0.22s cubic-bezier(.4,1.6,.6,1), box-shadow 0.22s;
+                                        cursor: pointer;
+                                }
+                                .stat-hover:hover {
+                                        transform: scale(1.10) translateY(-3px);
+                                        box-shadow: 0 6px 24px 0 rgba(40,116,159,0.13);
+                                        background: none;
+                                }
+                                .stat-hover:active {
+                                        transform: scale(0.98) translateY(1px);
+                                        box-shadow: 0 2px 8px 0 rgba(40,116,159,0.08);
+                                }
+                                .stat-hover .stat-number {
+                                        display: inline-block;
+                                        font-variant-numeric: tabular-nums;
+                                }
+                                </style>
+                                <script>
+                                // Animated count-up for stat numbers, with suffix (like '+') always visible during animation
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    function animateCount(el, target, suffix, duration) {
+                                        if (el._counting) return;
+                                        el._counting = true;
+                                        const start = 0;
+                                        const end = parseFloat(target);
+                                        const decimals = (target + '').includes('.') ? 1 : 0;
+                                        el.textContent = start.toFixed(decimals);
+                                        const startTime = performance.now();
+                                        function easeInQuad(t) { return t * t; }
+                                        function update(now) {
+                                            const elapsed = now - startTime;
+                                            const progress = Math.min(elapsed / duration, 1);
+                                            const eased = easeInQuad(progress);
+                                            let value = start + (end - start) * eased;
+                                            // Always show integer during animation
+                                            let displayValue = value.toFixed(decimals);
+                                            // Only show suffix if value is at or above target (use integer comparison for safety)
+                                            if (progress < 1) {
+                                                if (Math.round(value) >= Math.round(end)) {
+                                                    el.textContent = end.toFixed(decimals) + (suffix || '');
+                                                } else {
+                                                    el.textContent = displayValue;
+                                                }
+                                                requestAnimationFrame(update);
+                                            } else {
+                                                el.textContent = end.toFixed(decimals) + (suffix || '');
+                                                setTimeout(() => { el._counting = false; }, 400);
+                                            }
+                                        }
+                                        requestAnimationFrame(update);
+                                    }
+                                    // Animate on initial load
+                                    document.querySelectorAll('.stat-hover .stat-number').forEach(function(num) {
+                                        const target = num.getAttribute('data-target');
+                                        const suffix = num.getAttribute('data-suffix') || '';
+                                        if (target) {
+                                            // Set initial value to 0 (no suffix) to match animation start
+                                            num.textContent = '0';
+                                            animateCount(num, target, suffix, 900);
+                                        }
+                                    });
+                                    // Animate on hover (prevent overlap with initial)
+                                    document.querySelectorAll('.stat-hover').forEach(function(stat) {
+                                        stat.addEventListener('mouseenter', function() {
+                                            const num = stat.querySelector('.stat-number');
+                                            if (!num) return;
+                                            if (num._counting) return; // Prevent retrigger during animation
+                                            const target = num.getAttribute('data-target');
+                                            const suffix = num.getAttribute('data-suffix') || '';
+                                            if (target) animateCount(num, target, suffix, 900);
+                                        });
+                                    });
+                                });
+                                </script>
                 <div class="skills-pills mb-4">
                     <span class="skill-pill" style="--i:0; color:#666; border-color:#bbb; background:transparent;">S/4 HANA</span>
                     <span class="skill-pill" style="--i:1; color:#666; border-color:#bbb; background:transparent;">Fiori</span>
